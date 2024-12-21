@@ -1,0 +1,7 @@
+service touchservice /odm/bin/touch_report_debug
+    class hal
+    user root
+    group root
+    capabilities SYS_NICE
+    ioprio rt 4
+    seclabel u:r:recovery:s0

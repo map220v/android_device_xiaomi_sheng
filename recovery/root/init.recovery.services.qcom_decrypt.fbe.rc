@@ -1,0 +1,18 @@
+service keymint-qti /system/bin/android.hardware.security.keymint-service-qti
+    user root
+    group root
+    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib:/system/lib64:/system/lib:/sbin
+    disabled
+    oneshot
+    seclabel u:r:recovery:s0
+
+on property:vendor.sys.listeners.registered=true
+    start keymint-qti
+
+on property:twrp.all.users.decrypted=true
+    setprop crypto.ready 0
+    stop keymint-qti
+
+on property:ro.crypto.type=block && property:ro.crypto.fs_crypto_blkdev=*
+    setprop crypto.ready 0
+    stop keymint-qti
