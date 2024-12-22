@@ -78,11 +78,13 @@ BOARD_RECOVERYIMAGE_PARTITION_SIZE := 104857600
 
 # Dynamic Partitions
 BOARD_SUPER_PARTITION_SIZE := 11811160064
-BOARD_SUPER_PARTITION_GROUPS := xiaomi_dynamic_partitions
-BOARD_XIAOMI_DYNAMIC_PARTITIONS_SIZE := 11811160064
-BOARD_XIAOMI_DYNAMIC_PARTITIONS_PARTITION_LIST := system odm product system_ext vendor vendor_dlkm
+BOARD_SUPER_PARTITION_GROUPS := qti_dynamic_partitions
+# BOARD_SUPER_PARTITION_SIZE - (2GiB + 10MiB)
+BOARD_QTI_DYNAMIC_PARTITIONS_SIZE := 9653190656
+# odm product system system_dlkm system_ext vendor vendor_dlkm mi_ext
+BOARD_QTI_DYNAMIC_PARTITIONS_PARTITION_LIST := odm product system system_ext vendor vendor_dlkm
 
-BOARD_PARTITION_LIST := $(call to-upper, $(BOARD_XIAOMI_DYNAMIC_PARTITIONS_PARTITION_LIST))
+BOARD_PARTITION_LIST := $(call to-upper, $(BOARD_QTI_DYNAMIC_PARTITIONS_PARTITION_LIST))
 $(foreach p, $(BOARD_PARTITION_LIST), $(eval BOARD_$(p)IMAGE_FILE_SYSTEM_TYPE := erofs))
 $(foreach p, $(BOARD_PARTITION_LIST), $(eval TARGET_COPY_OUT_$(p) := $(call to-lower, $(p))))
 
